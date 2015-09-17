@@ -2,6 +2,9 @@
 .Rhistory
 .Rapp.history
 
+# Stupid Mac file
+.DS_Store
+
 # Example code in package build process
 *-Ex.R
 

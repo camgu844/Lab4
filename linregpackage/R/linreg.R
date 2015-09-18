@@ -39,22 +39,23 @@ linreg <- function (formula, data) {
   var_reg_coef <- res_var * del_b  # "The variance of the regression coefficients"  
   var_reg_coef
   
-  t_each_coef <- reg_coef %/% sqrtm(var_reg_coef)    # OBS: something wrong here!
+  t_each_coef <- reg_coef %/% diag(sqrtm(var_reg_coef))    # "The t-values for each coefficient"
   t_each_coef
   
   p_values <- pt(reg_coef, df = deg_free)   # "p-values for the regressions coefficients"  
   
-  #the code below is there temporarily to get the correct output value.
-  #res_temp <- lm(formula, data)
-  #return(res_temp) 
   
   ret <- list()
   class(ret) <- "linreg"
   ret$reg_coef <- reg_coef
   ret$fitted_values <- fitted_values
   ret$resi <- resi
+  ret$deg_free <- deg_free
+  ret$res_var <- res_var
+  ret$var_reg_coef <- var_reg_coef
+  ret$t_each_coef <- t_each_coef
+  ret$p_values <- p_values
   return(ret)
   
 }
 
-class(linreg) <- "linreg"

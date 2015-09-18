@@ -5,6 +5,7 @@ Version: 0.0.0.9000
 Date: 2015-09-09
 Author: Camilla Skoglund and Amar Zhra
 Maintainer: Camilla Skoglund <camgu844@student.liu.se>
-Description: This package includes the code for a multiple regression model. 
+Description: This package includes the code for a multiple regression model.
 License: GPL-2
-Suggests: testthat
+Suggests: testthat, knitr, rmarkdown
+VignetteBuilder: knitr

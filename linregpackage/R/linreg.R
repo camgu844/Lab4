@@ -1,3 +1,6 @@
+library(ggplot2)
+library(expm)
+
 linreg <- function (formula, data) {
   stopifnot((class(formula)=="formula") && (class(data)=="data.frame"))
   
@@ -42,8 +45,16 @@ linreg <- function (formula, data) {
   p_values <- pt(reg_coef, df = deg_free)   # "p-values for the regressions coefficients"  
   
   #the code below is there temporarily to get the correct output value.
-  res_temp <- lm(formula, data)
-  return(res_temp) 
+  #res_temp <- lm(formula, data)
+  #return(res_temp) 
   
+  ret <- list()
+  class(ret) <- "linreg"
+  ret$reg_coef <- reg_coef
+  ret$fitted_values <- fitted_values
+  ret$resi <- resi
+  return(ret)
   
 }
+
+class(linreg) <- "linreg"

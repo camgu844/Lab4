@@ -1,5 +1,7 @@
 # code for the different methods
 
+o <- linreg(formula = Petal.Length~Species, data = iris)
+
 # A function that creates a data frame from an object of class linreg.
 
 as.data.frame.linreg <- function(x) {
@@ -7,7 +9,18 @@ as.data.frame.linreg <- function(x) {
   return(datafr)
 }
 
-# Method for printing linreg objects.
+# Method for printing the coefficients and coefficient names.
+
+print.linreg = function(o){
+  data_name <- o$data_name
+  formula_str = Reduce(paste, deparse(o$formula))
+  cat("Call:\n")
+  cat(paste("linreg(formula = ",formula_str,",data = ", data_name, ")\n\n"))
+  cat("Coefficients:\n")
+  print(o$reg_coef)
+}
+print(o)
+
 
 # The plot-method that creates two plots.
 
@@ -33,23 +46,6 @@ plot.linreg <- function(y, ...) {
 
 }
 
-
-# A method that print the summary
-print.linreg = function(o){
-	formula_str = Reduce(paste, deparse(o$formula))
-	vars = all.vars(o$formula)
-	vars = vars[2:length(vars)]
-	vars = c("(Intercept)", vars)
-	coefs = round(o$reg_coef, 5)
-	names(coefs) = vars
-
-	cat("Call:\n")
-	cat(paste("linreg(",formula_str,")\n\n"))
-	cat("Coefficients:\n")
-	print(coefs)
-    # cat(paste(vars , sep="   ",collapse = "\t"))
-    # cat(paste(coef, sep="   ",collapse = "\t"))
-}
 
 # A method that returns the vector of residuals e.
 residuals.linreg <- function(o){

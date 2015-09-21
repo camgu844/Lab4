@@ -1,12 +1,24 @@
 library(linregpackage)
 context("tests the methods coefficients, resid and pred")
 
+data(faithful)
 formula <- eruptions ~ waiting
 data <- faithful
 
-test_that("return values are of correct class", {
-  expect_that(mode(coeff), equals("numeric"))
-  expect_that(mode(resid), equals("numeric"))
-  expect_that(mode(coeff), equals("numeric"))
+m1 = linreg(formula, data)
+m2 = lm(formula, data)
+
+test_that("Coefficients", {
+  expect_that(length(coef(m1)), equals(length(coef(m2)), tolerance  = 0.01))
+  expect_that(coef(m1), equals(coef(m2), tolerance  = 0.01))
 })
 
+test_that("Residuals", {
+  expect_that(length(residuals(m1)), equals(length(residuals(m2)), tolerance  = 0.01))
+  expect_that(residuals(m1), equals(residuals(m2), tolerance = 0.01))
+})
+
+test_that("Predictions", {
+  expect_that(length(predict(m1)), equals(length(predict(m2)), tolerance  = 0.01))
+  expect_that(predict(m1), equals(predict(m2), tolerance = 0.01))
+})

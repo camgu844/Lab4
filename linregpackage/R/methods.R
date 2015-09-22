@@ -1,33 +1,35 @@
+
+
 # code for the different methods
 
-o <- linreg(formula = Petal.Length~Species, data = iris)
+x <- linreg(formula = Petal.Length~Species, data = iris)
 
 # A function that creates a data frame from an object of class linreg.
 
-as.data.frame.linreg <- function(x) {
+as.data.frame.linreg <- function(x, ...) {
   datafr <- data.frame(fitted=x$fitted_values, residuals=x$resi)
   return(datafr)
 }
 
 # Method for printing the coefficients and coefficient names.
 
-print.linreg = function(o){
-  data_name <- o$data_name
-  formula_str = Reduce(paste, deparse(o$formula))
+print.linreg = function(x, ...){
+  data_name <- x$data_name
+  formula_str = Reduce(paste, deparse(x$formula))
   cat("Call:\n")
   cat(paste("linreg(formula = ",formula_str,",data = ", data_name, ")\n\n"))
   cat("Coefficients:\n")
-  print(o$reg_coef)
+  print(x$reg_coef)
 }
-print(o)
+print(x)
 
 
 # The plot-method that creates two plots.
 
-plot.linreg <- function(y, ...) {
-  form_temp <- as.character(y$formula)
+plot.linreg <- function(x, ...) {
+  form_temp <- as.character(x$formula)
   form <- paste("linreg(",form_temp[2],form_temp[1],form_temp[3],")")
-  z <- as.data.frame(y)
+  z <- as.data.frame(x)
   ggplot(z) +
     geom_point(shape=1, size=5, aes(x=fitted, y=residuals)) +
     xlab(paste("Fitted values",form, sep="\n")) +
@@ -37,7 +39,7 @@ plot.linreg <- function(y, ...) {
 
   devAskNewPage()
   
-  mod_residuals <- sqrt(abs(z$residuals / sqrt(y$res_var)))  # squareroot of abs of standardized residuals. Standardized residuals = residual / sqrt of residual variance
+  mod_residuals <- sqrt(abs(z$residuals / sqrt(x$res_var)))  # squareroot of abs of standardized residuals. Standardized residuals = residual / sqrt of residual variance
   z[,2] <- mod_residuals
   colnames(z)[2] <- "mod_residuals"
   ggplot(z) +
@@ -50,58 +52,58 @@ plot.linreg <- function(y, ...) {
 
 
 # A method that returns the vector of residuals e.
-residuals.linreg <- function(o){
-	return(o$resi)
+residuals.linreg <- function(object, ...){
+	return(object$resi)
 }
 
 # A method that returns the predicted values y.
-predict.linreg <- function(o){
-	return(o$fitted_values)
+predict.linreg <- function(object, ...){
+	return(object$fitted_values)
 }
 
 # A method that returns the coefficients as a named vector.
-coef.linreg <- function(o){
-	vars = all.vars(o$formula)
+coef.linreg <- function(object, ...){
+	vars = all.vars(object$formula)
 	vars = vars[2:length(vars)]
 	vars = c("(Intercept)", vars)
-	coefs = o$reg_coef
+	coefs = object$reg_coef
 	names(coefs) = vars
 	return(coefs)
 }
 
 # A method that prints a summary of the linreg-function.
-summary.linreg <- function(o){
-	vars = all.vars(o$formula)
+summary.linreg <- function(object, ...){
+	vars = all.vars(object$formula)
 	vars = vars[2:length(vars)]
 	vars = c("(Intercept)", vars)
 
-	tmp = c(o$reg_coef,o$var_reg_coef,o$t_each_coef,o$p_values)
-	tmp = matrix(tmp,nrow=length(o$reg_coef))
+	tmp = c(object$reg_coef,object$var_reg_coef,object$t_each_coef,object$p_values)
+	tmp = matrix(tmp,nrow=length(object$reg_coef))
 	rownames(tmp) = vars
 	colnames(tmp) = c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
 
 	summary = list()
 	summary$Coefficients = tmp
-	summary$df = o$deg_free
-	summary$rse = sqrt(o$res_var)
-	summary$formula = Reduce(paste, deparse(o$formula))
+	summary$df = object$deg_free
+	summary$rse = sqrt(object$res_var)
+	summary$formula = Reduce(paste, deparse(object$formula))
 	class(summary) <- 'linreg_summary'
 	return(summary)
 }
-print.linreg_summary <- function(o){
+print.linreg_summary <- function(x, ...){
 
 	cat("Call:\n")
-	cat(paste("linreg(",o$formula,")\n\n"))
+	cat(paste("linreg(",x$formula,")\n\n"))
 
 	cat('Coefficients: \n')
-	print(o$Coefficients)
+	print(x$Coefficients)
 	cat('\n')
 
 	cat(paste(
 		'Residual standard error:',
-		round(o$rse,4),
+		round(x$rse,4),
 		'on',
-		o$df,
+		x$df,
 		'degrees of freedom'
 		))
 	cat('\n')

@@ -1,5 +1,5 @@
 library(linregpackage)
-context("tests the methods coefficients, resid and pred")
+context("Tests the methods coefficients, resid and pred")
 
 data(faithful)
 formula <- eruptions ~ waiting

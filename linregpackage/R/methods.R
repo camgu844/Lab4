@@ -37,6 +37,8 @@ plot.linreg <- function(x, ...) {
     ggtitle("Residuals vs Fitted") +
     geom_text(aes(label = tail(z$residuals,1), x=max(z$fitted), y=max(z$residuals)), hjust=1.5, size = 3)
 
+  devAskNewPage()
+  
   mod_residuals <- sqrt(abs(z$residuals / sqrt(x$res_var)))  # squareroot of abs of standardized residuals. Standardized residuals = residual / sqrt of residual variance
   z[,2] <- mod_residuals
   colnames(z)[2] <- "mod_residuals"

@@ -1,8 +1,5 @@
-
-
 # code for the different methods
-
-x <- linreg(formula = Petal.Length~Species, data = iris)
+# x <- linreg(formula = Petal.Length~Species, data = iris)
 
 # A function that creates a data frame from an object of class linreg.
 
@@ -21,8 +18,6 @@ print.linreg = function(x, ...){
   cat("Coefficients:\n")
   print(x$reg_coef)
 }
-print(x)
-
 
 # The plot-method that creates two plots.
 
@@ -38,7 +33,7 @@ plot.linreg <- function(x, ...) {
     geom_text(aes(label = tail(z$residuals,1), x=max(z$fitted), y=max(z$residuals)), hjust=1.5, size = 3)
 
   devAskNewPage()
-  
+
   mod_residuals <- sqrt(abs(z$residuals / sqrt(x$res_var)))  # squareroot of abs of standardized residuals. Standardized residuals = residual / sqrt of residual variance
   z[,2] <- mod_residuals
   colnames(z)[2] <- "mod_residuals"
@@ -109,10 +104,10 @@ print.linreg_summary <- function(x, ...){
 	cat('\n')
 }
 
-formula <- eruptions ~ waiting
-data <- faithful
-# attach(faithful)
-m1 = linreg(eruptions~waiting, faithful)
-m2 = lm(eruptions~waiting, faithful)
+# formula <- eruptions ~ waiting
+# data <- faithful
+# attach(faithful2)
+# m1 = linreg(eruptions~waiting, faithful)
+# m2 = lm(eruptions~waiting, faithful)
 # print(summary(tmp))
 # print(summary(l))

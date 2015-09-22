@@ -46,5 +46,4 @@ linreg <- function (formula, data) {
   ret$t_each_coef <- t_each_coef
   ret$p_values <- p_values
   return(ret)
-
 }

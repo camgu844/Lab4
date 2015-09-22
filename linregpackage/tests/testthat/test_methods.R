@@ -8,6 +8,7 @@ data <- faithful
 m1 = linreg(formula, data)
 m2 = lm(formula, data)
 
+
 test_that("Coefficients", {
   expect_less_than(sum(as.numeric(abs(coef(m1))-abs(coef(m2)))),0.01)
 })

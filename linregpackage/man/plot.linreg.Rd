@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{linreg object}
+
+\item{...}{other arguments}
 }
 \description{
 The plot-method that creates two plots.

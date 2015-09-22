@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{linreg object}
+
+\item{...}{other arguments}
 }
 \description{
 Method for printing the coefficients and coefficient names.

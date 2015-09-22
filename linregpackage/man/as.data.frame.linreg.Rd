@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{linreg object}
+
+\item{...}{other arguments}
 }
 \value{
 data.frame contains fitted values and residuals.

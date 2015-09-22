@@ -2,17 +2,19 @@
 % Please edit documentation in R/methods.R
 \name{summary.linreg}
 \alias{summary.linreg}
-\title{A method that prints a summary of the linreg-function.}
+\title{A method that creates a summary of the linreg-function.}
 \usage{
 \method{summary}{linreg}(object, ...)
 }
 \arguments{
-\item{x}{linreg object}
+\item{object}{linreg object}
+
+\item{...}{other arguments}
 }
 \value{
 linreg_summary object, can be printed.
 }
 \description{
-A method that prints a summary of the linreg-function.
+A method that creates a summary of the linreg-function.
 }
 

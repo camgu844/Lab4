@@ -2,6 +2,7 @@
 #' A function that creates a data frame from an object of class linreg.
 #'
 #' @param x linreg object
+#' @param ... other arguments
 #' @return data.frame contains fitted values and residuals.
 as.data.frame.linreg <- function(x, ...) {
   datafr <- data.frame(fitted=x$fitted_values, residuals=x$resi)
@@ -11,6 +12,7 @@ as.data.frame.linreg <- function(x, ...) {
 #' Method for printing the coefficients and coefficient names.
 #'
 #' @param x linreg object
+#' @param ... other arguments
 print.linreg = function(x, ...){
   data_name <- x$data_name
   formula_str = Reduce(paste, deparse(x$formula))
@@ -23,6 +25,7 @@ print.linreg = function(x, ...){
 #' The plot-method that creates two plots.
 #'
 #' @param x linreg object
+#' @param ... other arguments
 plot.linreg <- function(x, ...) {
   form_temp <- as.character(x$formula)
   form <- paste("linreg(",form_temp[2],form_temp[1],form_temp[3],")")
@@ -35,7 +38,7 @@ plot.linreg <- function(x, ...) {
     geom_text(aes(label = tail(z$residuals,1), x=max(z$fitted), y=max(z$residuals)), hjust=1.5, size = 3)
 
   devAskNewPage()
-
+  
   mod_residuals <- sqrt(abs(z$residuals / sqrt(x$res_var)))  # squareroot of abs of standardized residuals. Standardized residuals = residual / sqrt of residual variance
   z[,2] <- mod_residuals
   colnames(z)[2] <- "mod_residuals"
@@ -50,7 +53,8 @@ plot.linreg <- function(x, ...) {
 
 #' A method that returns the vector of residuals e.
 #'
-#' @param x linreg object
+#' @param object linreg object
+#' @param ... other arguments
 #' @return vector of residuals.
 residuals.linreg <- function(object, ...){
 	return(object$resi)
@@ -58,7 +62,8 @@ residuals.linreg <- function(object, ...){
 
 #' A method that returns the predicted values y.
 #'
-#' @param x linreg object
+#' @param object linreg object
+#' @param ... other arguments
 #' @return vector of predictions.
 predict.linreg <- function(object, ...){
 	return(object$fitted_values)
@@ -66,7 +71,8 @@ predict.linreg <- function(object, ...){
 
 #' A method that returns the coefficients as a named vector.
 #'
-#' @param x linreg object
+#' @param object linreg object
+#' @param ... other arguments
 #' @return named vector of coefficients.
 coef.linreg <- function(object, ...){
 	vars = all.vars(object$formula)
@@ -77,9 +83,10 @@ coef.linreg <- function(object, ...){
 	return(coefs)
 }
 
-#' A method that prints a summary of the linreg-function.
+#' A method that creates a summary of the linreg-function.
 #'
-#' @param x linreg object
+#' @param object linreg object
+#' @param ... other arguments
 #' @return linreg_summary object, can be printed.
 summary.linreg <- function(object, ...){
 	vars = all.vars(object$formula)
@@ -99,6 +106,11 @@ summary.linreg <- function(object, ...){
 	class(summary) <- 'linreg_summary'
 	return(summary)
 }
+
+#' Method for printing a summary of the results from the linreg function.
+#'
+#' @param x linreg object
+#' @param ... other arguments
 print.linreg_summary <- function(x, ...){
 
 	cat("Call:\n")

@@ -1,3 +1,23 @@
+#' Multiple Linear Regression.
+#'
+#' @param formula A formula implies the model (e.g. y ~ x)
+#' @param data data frame, dataset attached to the algorithm
+#' @return linreg object.
+#' @examples
+#' formula <- eruptions ~ waiting
+#' data <- faithful
+#' m1 = linreg(eruptions~waiting, faithful)
+#'
+#' summary(m1)
+#' # Call:
+#' # linreg( eruptions ~ waiting )
+#' #
+#' # Coefficients:
+#' #                Estimate  Std. Error   t value Pr(>|t|)
+#' # (Intercept) -1.87401599 0.160143302 -11.70212        0
+#' # waiting      0.07562795 0.002218541  34.08904        0
+#' #
+#' # Residual standard error: 0.4965 on 270 degrees of freedom
 linreg <- function (formula, data) {
   stopifnot((class(formula)=="formula") && (class(data)=="data.frame"))
 

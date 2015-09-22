@@ -8,6 +8,7 @@ data <- faithful
 m1 = linreg(formula, data)
 m2 = lm(formula, data)
 
+
 test_that("Coefficients", {
   expect_that(length(coef(m1)), equals(length(coef(m2)), tolerance  = 0.01))
   expect_that(coef(m1), equals(coef(m2), tolerance  = 0.01))
@@ -20,5 +21,5 @@ test_that("Residuals", {
 
 test_that("Predictions", {
   expect_that(length(predict(m1)), equals(length(predict(m2)), tolerance  = 0.01))
-  expect_that(predict(m1), equals(predict(m2), tolerance = 0.01))
+  expect_that((predict(m2)-predict(m1)), equals(0, tolerance = 0.01))
 })

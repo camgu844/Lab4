@@ -36,6 +36,7 @@ linreg <- function (formula, data) {
   class(ret) <- "linreg"
   ret$formula <- formula
   ret$data <- data
+  ret$data_name <- deparse(substitute(data))
   ret$reg_coef <- reg_coef[,1]
   ret$fitted_values <- as.vector(fitted_values)
   ret$resi <- resi

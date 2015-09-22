@@ -22,7 +22,7 @@ The DESCRIPTION file:
 Maintainer: \packageMaintainer{linregpackage}
 }
 \references{
-~~ Literature or other references for background information ~~
+#~~ Literature or other references for background information ~~
 }
 \keyword{ package }
 \seealso{

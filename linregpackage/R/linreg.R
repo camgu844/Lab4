@@ -40,7 +40,7 @@ linreg <- function (formula, data) {
   resi <- as.vector(y - fitted_values) # "The residuals"
 
   n <- length(y)
-  p <- length(data)
+  p <- length(colnames(X))
   deg_free <- n - p         # "The degrees of freedom"
 
   res_var <- as.vector((t(resi) %*% resi) / deg_free)  # "The residual variance"
@@ -49,9 +49,9 @@ linreg <- function (formula, data) {
 
   t_each_coef <- reg_coef / sqrt(diag(var_reg_coef))    # "The t-values for each coefficient"
 
-  p_values <- 1-pt(abs(t_each_coef), df = deg_free)   # "p-values for the regressions coefficients"
-
-
+  p_values <- 2*pt(-abs(t_each_coef), df = deg_free)   # "p-values for the regressions coefficients"
+  
+  
   ret <- list()
   class(ret) <- "linreg"
   ret$formula <- formula

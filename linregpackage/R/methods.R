@@ -99,9 +99,9 @@ summary.linreg <- function(object, ...){
 	colnames(tmp) = c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
 
 	summary = list()
-	summary$Coefficients = tmp
+	summary$coefficients = round(tmp,4)
 	summary$df = object$deg_free
-	summary$rse = sqrt(object$res_var)
+	summary$rse = round(sqrt(object$res_var),4)
 	summary$formula = Reduce(paste, deparse(object$formula))
 	class(summary) <- 'linreg_summary'
 	return(summary)
@@ -117,7 +117,7 @@ print.linreg_summary <- function(x, ...){
 	cat(paste("linreg(",x$formula,")\n\n"))
 
 	cat('Coefficients: \n')
-	print(x$Coefficients)
+	print(x$coefficients)
 	cat('\n')
 
 	cat(paste(
